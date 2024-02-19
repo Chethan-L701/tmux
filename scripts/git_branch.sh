@@ -16,7 +16,7 @@ get_git_status() {
     local added=$(git -C "$dir" diff --name-only --cached 2>/dev/null | wc -l)
     local modified=$(git -C "$dir" diff --name-only 2>/dev/null | wc -l)
 
-    local upstream_count=$(git -C "$dir" rev-list --count --left-right @{upstream}...HEAD 2>/dev/null | cut -f1)
+    local upstream_count=$(git -C "$dir" rev-list --count --left-right @{upstream}...HEAD 2>/dev/null | cut -f2)
     local downstream_count=$(git -C "$dir" rev-list --count --left-right HEAD...@{upstream} 2>/dev/null | cut -f2)
 
     local status_info=""
@@ -34,11 +34,11 @@ get_git_status() {
     fi
 
     if [ "$upstream_count" -gt 0 ]; then
-        status_info+="#[fg=colour117,bg=default,bold]↑$upstream_count "
+        status_info+="#[fg=colour117,bg=default,bold] ↑$upstream_count"
     fi
 
     if [ "$downstream_count" -gt 0 ]; then
-        status_info+="#[fg=colour117,bg=default,bold]↓$downstream_count "
+        status_info+="#[fg=colour117,bg=default,bold] ↓$downstream_count"
     fi
 
     echo "$status_info"
