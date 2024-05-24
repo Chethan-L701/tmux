@@ -1,6 +1,8 @@
 uc=false
 mc=false
 tc=false
+
+# this a script to show git branch name
 untracked() {
     local val=$(git -C "$1" ls-files --others --exclude-standard 2>/dev/null | wc -l)
     if [ "$val" -gt 0 ]; then
